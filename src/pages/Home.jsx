@@ -45,7 +45,7 @@ export default function Home({ onLogOut }) {
       data: { registros, descontos },
     } = await getRegistros({ ano, mes });
 
-    localStorage.setItem("user_cache", JSON.stringify({ registros, descontos }));
+    localStorage.setItem("user_cache", JSON.stringify({ registros: registros ?? [], descontos: descontos ?? [] }));
     setRegistros(registros);
     resetInputs();
   };
