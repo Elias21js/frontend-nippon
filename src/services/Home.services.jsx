@@ -682,7 +682,7 @@ export async function getSemanal({ ano, mes }) {
   if (data.length === 0) return Toast.fire({ icon: "warning", text: "Ainda não há registros na semana.", timer: 2000 });
 
   const semanas = [
-    { inicio: new Date(ano, mes - 1, 1), fim: new Date(ano, mes - 1, 7, 23, 59, 59, 999) },
+    { inicio: new Date(ano, mes - 1, 0), fim: new Date(ano, mes - 1, 7, 23, 59, 59, 999) },
     { inicio: new Date(ano, mes - 1, 8), fim: new Date(ano, mes - 1, 14, 23, 59, 59, 999) },
     { inicio: new Date(ano, mes - 1, 15), fim: new Date(ano, mes - 1, 21, 23, 59, 59, 999) },
     // Para o último intervalo, melhor pegar o último dia do mês
@@ -697,8 +697,6 @@ export async function getSemanal({ ano, mes }) {
 
     semanas.forEach(({ inicio, fim }, index) => {
       if (!ac[index]) ac[index] = [];
-      console.log(dataObj >= inicio);
-      console.log(dataObj, inicio);
 
       if (dataObj >= inicio && dataObj <= fim) {
         if (!ac[index].find(({ fotografo }) => nome_fotografo === fotografo)) {
