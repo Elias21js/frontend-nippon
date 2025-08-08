@@ -692,14 +692,22 @@ export async function getSemanal({ ano, mes }) {
     },
   ];
 
+  function normalizeDate(d) {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
+
   const weeks = data.reduce((ac, { data: dataRegistro, nome_fotografo, vendas_20, vendas_15, sobras }) => {
-    const dataObj = new Date(dataRegistro);
+    const dataObj = normalizeDate(new Date(dataRegistro));
 
     semanas.forEach(({ inicio, fim }, index) => {
-      if (!ac[index]) ac[index] = [];
+      const inicioNorm = normalizeDate(inicio);
+      const fimNorm = normalizeDate(fim);
 
-      if (dataObj >= inicio && dataObj <= fim) {
-        if (!ac[index].find(({ fotografo }) => nome_fotografo === fotografo)) {
+      if (dataObj >= inicioNorm && dataObj <= fimNorm) {
+        if (!ac[index]) ac[index] = [];
+
+        const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
+        if (!existent) {
           ac[index].push({
             fotografo: nome_fotografo,
             vendas: vendas_20 + vendas_15,
@@ -708,21 +716,23 @@ export async function getSemanal({ ano, mes }) {
             aproveitamento: ((vendas_20 + vendas_15) / (vendas_20 + vendas_15 + sobras)) * 100,
           });
         } else {
-          const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
-
           existent.vendas += vendas_20 + vendas_15;
           existent.sobras += sobras;
           existent.producao += vendas_20 + vendas_15 + sobras;
           existent.aproveitamento = (existent.vendas / existent.producao) * 100;
         }
       }
-
-      ac[index] = ac[index].sort((a, b) => b.vendas - a.vendas);
     });
 
-    console.log(ac);
     return ac;
   }, []);
+
+  // Agora sim, ordena as semanas depois do reduce:
+  weeks.forEach((semana) => {
+    if (semana) {
+      semana.sort((a, b) => b.vendas - a.vendas);
+    }
+  });
 
   console.log(weeks);
   return weeks;
