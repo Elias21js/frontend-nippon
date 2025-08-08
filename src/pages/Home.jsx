@@ -51,10 +51,10 @@ export default function Home({ onLogOut }) {
   };
 
   function resetInputs() {
-    solds20?.current?.value = "";
-    solds15?.current?.value = "";
-    sobras.current?.value = "";
-    digitais?.current?.value = "";
+    if (solds20?.current) solds20.current.value = "";
+    if (solds15?.current) solds15.current.value = "";
+    if (sobras?.current) sobras.current.value = "";
+    if (digitais?.current) digitais.current.value = "";
   }
 
   useEffect(() => {
