@@ -714,22 +714,24 @@ export async function getSemanal({ ano, mes }) {
           existent.sobras += sobras;
           existent.producao += vendas_20 + vendas_15 + sobras;
           existent.aproveitamento = (existent.vendas / existent.producao) * 100;
-          console.log("exist index", existent);
         }
       }
 
       ac[index] = ac[index].sort((a, b) => b.vendas - a.vendas);
     });
 
+    console.log(ac);
     return ac;
   }, []);
 
+  console.log(weeks);
   return weeks;
 }
 
 // trigger para gerar ranking semanal
 export async function generateSemanal(target, { ano, mes }) {
   const weeks = await getSemanal({ ano, mes });
+  console.log(weeks);
 
   handleChart(target, "semanal");
 
