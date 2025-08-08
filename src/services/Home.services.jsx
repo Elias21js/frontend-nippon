@@ -697,6 +697,8 @@ export async function getSemanal({ ano, mes }) {
 
     semanas.forEach(({ inicio, fim }, index) => {
       if (!ac[index]) ac[index] = [];
+      console.log(dataObj >= inicio);
+      console.log(dataObj, inicio);
 
       if (dataObj >= inicio && dataObj <= fim) {
         if (!ac[index].find(({ fotografo }) => nome_fotografo === fotografo)) {
@@ -707,7 +709,6 @@ export async function getSemanal({ ano, mes }) {
             producao: vendas_20 + vendas_15 + sobras,
             aproveitamento: ((vendas_20 + vendas_15) / (vendas_20 + vendas_15 + sobras)) * 100,
           });
-          console.log("first index", ac[index]);
         } else {
           const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
 
@@ -717,7 +718,6 @@ export async function getSemanal({ ano, mes }) {
           existent.aproveitamento = (existent.vendas / existent.producao) * 100;
           console.log("exist index", existent);
         }
-        console.log(`ln 720 ${dataRegistro} ${nome_fotografo} - Vendas-20: ${vendas_20} | Vendas-15: ${vendas_15} `);
       }
 
       ac[index] = ac[index].sort((a, b) => b.vendas - a.vendas);
