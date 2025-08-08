@@ -51,10 +51,10 @@ export default function Home({ onLogOut }) {
   };
 
   function resetInputs() {
-    solds20.current.value = "";
-    solds15.current.value = "";
-    sobras.current.value = "";
-    digitais.current.value = "";
+    solds20?.current?.value = "";
+    solds15?.current?.value = "";
+    sobras.current?.value = "";
+    digitais?.current?.value = "";
   }
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export default function Home({ onLogOut }) {
         </AuthDivButtons>
       </GlassBox>
 
-      {registros.length >= 1 && (
+      {registros?.length >= 1 && (
         <>
           <Listagem>
             <RegistroHeader data-aos="fade-up">
