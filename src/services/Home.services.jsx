@@ -681,16 +681,24 @@ export async function getSemanal({ ano, mes }) {
   });
   if (data.length === 0) return Toast.fire({ icon: "warning", text: "Ainda não há registros na semana.", timer: 2000 });
 
-  const weeks = data.reduce((ac, { data, nome_fotografo, vendas_20, vendas_15, sobras }) => {
-    [
-      { inicio: "01", fim: "07" },
-      { inicio: "08", fim: "14" },
-      { inicio: "15", fim: "21" },
-      { inicio: "22", fim: "31" },
-    ].forEach(({ inicio, fim }, index) => {
+  const semanas = [
+    { inicio: new Date(ano, mes - 1, 1), fim: new Date(ano, mes - 1, 7, 23, 59, 59, 999) },
+    { inicio: new Date(ano, mes - 1, 8), fim: new Date(ano, mes - 1, 14, 23, 59, 59, 999) },
+    { inicio: new Date(ano, mes - 1, 15), fim: new Date(ano, mes - 1, 21, 23, 59, 59, 999) },
+    // Para o último intervalo, melhor pegar o último dia do mês
+    {
+      inicio: new Date(ano, mes - 1, 22),
+      fim: new Date(ano, mes, 0, 23, 59, 59, 999), // dia 0 do próximo mês = último dia do mês atual
+    },
+  ];
+
+  const weeks = data.reduce((ac, { data: dataRegistro, nome_fotografo, vendas_20, vendas_15, sobras }) => {
+    const dataObj = new Date(dataRegistro);
+
+    semanas.forEach(({ inicio, fim }, index) => {
       if (!ac[index]) ac[index] = [];
 
-      if (new Date(data) >= new Date(ano, mes - 1, inicio) && new Date(data) <= new Date(ano, mes - 1, fim)) {
+      if (dataObj >= inicio && dataObj <= fim) {
         if (!ac[index].find(({ fotografo }) => nome_fotografo === fotografo)) {
           ac[index].push({
             fotografo: nome_fotografo,
