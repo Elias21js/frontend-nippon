@@ -717,7 +717,7 @@ export async function getSemanal({ ano, mes }) {
           existent.aproveitamento = (existent.vendas / existent.producao) * 100;
           console.log("exist index", existent);
         }
-        console.log(`ln 720  ${nome_fotografo} - Vendas-20: ${vendas_20} | Vendas-15: ${vendas_15} `);
+        console.log(`ln 720 ${dataRegistro} ${nome_fotografo} - Vendas-20: ${vendas_20} | Vendas-15: ${vendas_15} `);
       }
 
       ac[index] = ac[index].sort((a, b) => b.vendas - a.vendas);
