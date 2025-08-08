@@ -1,0 +1,476 @@
+@import "tailwindcss";
+@import "flatpickr/dist/flatpickr.min.css";
+@import "flatpickr/dist/plugins/monthSelect/style.css";
+
+* {
+  font-family: "JetBrains Mono", monospace;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+html.swal2-shown {
+  overflow-y: auto !important;
+}
+
+body.swal2-shown {
+  padding: 0 !important;
+}
+
+body.home {
+  height: max-content;
+}
+
+@keyframes pulso {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(129, 140, 248, 0.7);
+  }
+  70% {
+    transform: scale(1.04);
+    box-shadow: 0 0 10px 10px rgba(129, 140, 248, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(129, 140, 248, 0);
+  }
+}
+
+.animado:hover {
+  animation: pulso 0.6s ease-in-out;
+  border-color: cyan;
+  color: cyan;
+}
+
+.animado:focus {
+  animation: pulso 0.6s ease-in-out;
+  border-color: cyan;
+  color: cyan;
+}
+
+.flatpickr-calendar {
+  position: absolute !important;
+  z-index: 9999 !important;
+}
+
+.flatpickr-calendar.disable-months .flatpickr-months {
+  display: none !important;
+}
+
+.glass-form {
+  @media screen and (max-width: 522px) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+label {
+  font-size: 1.6rem;
+}
+
+.swal-glass {
+  background: rgba(255, 255, 255, 0.061);
+  backdrop-filter: blur(2px);
+  color: white;
+  padding-top: 4rem;
+  width: clamp(280px, 85vw, 500px);
+  padding-bottom: 4rem;
+  border-top-left-radius: 15rem;
+  border-bottom-right-radius: 15rem;
+
+  & .swal2-radio {
+    background: transparent;
+    color: white;
+
+    & .radioRibbon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-flow: column nowrap;
+      row-gap: 2rem;
+    }
+  }
+}
+
+.swal2-validation-message {
+  background: rgba(255, 255, 255, 0.061);
+  backdrop-filter: blur(2px);
+  color: white;
+}
+
+.toast-glass {
+  background: rgba(26, 25, 25, 0.192) !important;
+  backdrop-filter: blur(5px) !important;
+  color: rgb(255, 255, 255);
+  border-top-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  font-size: 1.4rem;
+  white-space: nowrap !important; /* 👈 Evita quebra de linha */
+  width: auto !important; /* 👈 Fica do tamanho do texto */
+  max-width: none !important; /* 👈 Libera largura total */
+  user-select: none;
+  cursor: pointer;
+}
+
+.swal-cont {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-flow: column nowrap;
+  width: max-content;
+  margin: 0 auto;
+  row-gap: 0.5rem;
+
+  & p {
+    font-size: clamp(18px, 1vw, 20px);
+  }
+}
+.swal2-timer-progress-bar {
+  background: white !important;
+  height: 3px !important;
+  border-radius: 3px;
+}
+
+.swal2-container.swal2-top {
+  width: max-content !important;
+}
+
+.swal2-cancel {
+  color: #fff;
+  background-color: #636580;
+  border-color: #636580;
+}
+
+.swal2-confirm {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.swal2-actions {
+  flex-flow: row;
+  font-size: 1.3rem;
+}
+
+.edit-title {
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
+
+.reason-discount {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* RELATÓRIO ESTILOS */
+
+.rela-title {
+  font-size: 2.3rem;
+}
+
+.rela-div {
+  width: max-content;
+  margin: 0 auto;
+}
+
+.ul-rela {
+  font-size: 1.6rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+
+  & .destaque {
+    color: rgb(232, 247, 69);
+  }
+}
+
+/* DESCONTOS ESTILIZAÇÃO */
+
+.listagem {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 1rem;
+}
+
+.registro {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.061);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  padding: 1.6rem;
+  width: 100%;
+  font-size: 1.6rem;
+  border-radius: 0.8rem;
+  -webkit-box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  -webkit-transition: -webkit-transform 0.7s ease;
+  transition: -webkit-transform 0.7s ease;
+  transition: transform 0.7s ease;
+  transition: transform 0.7s ease, -webkit-transform 0.7s ease;
+}
+.listagem .registro:first-child:hover {
+  -webkit-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  transform: scaleX(1);
+  cursor: default;
+}
+.listagem .registro:hover {
+  -webkit-transform: scale(1.01);
+  -ms-transform: scale(1.01);
+  transform: scale(1.01);
+}
+.listagem .registro span {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+  min-width: 8rem;
+}
+.listagem .registro span:first-child {
+  text-align: left;
+}
+.listagem .registro span:last-child {
+  text-align: right;
+}
+.listagem .registro.div-estilosa::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 40%, #8828ff 50%, transparent 60%);
+  -webkit-transform: skewX(-20deg);
+  -ms-transform: skewX(-20deg);
+  transform: skewX(-20deg);
+  -webkit-transition: left 0.7s ease;
+  transition: left 0.7s ease;
+  z-index: 0;
+}
+.listagem .registro.div-estilosa:hover::before {
+  left: 0%;
+}
+.listagem .registro.div-estilosa span {
+  position: relative;
+  z-index: 1;
+}
+@media screen and (max-width: 730px) {
+  .registro {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    width: 100%;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, transparent, rgba(119, 0, 255, 0.2470588235));
+    color: white;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    grid-template-columns: 1fr;
+  }
+
+  .registro span:first-child {
+    font-size: 1.45rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  .registro span:first-child::before {
+    content: "📅 ";
+  }
+  .registro span:not(:first-child) {
+    font-size: 1.3rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.3rem 0.7rem;
+    border-radius: 10px;
+  }
+  .registro span:nth-child(2)::before {
+    content: "🛒 Vendas: ";
+  }
+  .registro span:nth-child(3)::before {
+    content: "🍞 Sobras: ";
+  }
+  .registro span:nth-child(4)::before {
+    content: "🏭 Produção: ";
+  }
+  .registro span:nth-child(5)::before {
+    content: "📈 Aproveitamento: ";
+  }
+}
+
+.head-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+.head-container span {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 730px) {
+  .head-container {
+    display: none;
+  }
+}
+
+/* RANKING ESTILIZADO */
+
+#charts {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+
+  transition: all 0.5s ease;
+  opacity: 0;
+  height: 0;
+  padding: 0 2rem;
+  overflow: hidden;
+
+  &.visible {
+    opacity: 1;
+    height: auto;
+  }
+
+  & #doughnut-chart {
+    max-width: 500px;
+    max-height: 500px;
+    display: block;
+    aspect-ratio: 1 / 1;
+  }
+
+  & #line-chart {
+    width: 100% !important;
+    max-width: 1200px;
+    height: auto !important;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+#ranking-chart {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.5s ease;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+
+  &.visible {
+    opacity: 1;
+    height: auto;
+  }
+
+  #bar-chart {
+    width: 100% !important;
+    max-width: 1200px;
+    height: auto !important;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+#ranking-semanal {
+  transition: all 0.5s ease;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+
+  &.visible {
+    opacity: 1;
+    height: auto;
+  }
+
+  .swiper {
+    width: 100%;
+    height: 300px;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    font-size: 2rem;
+  }
+
+  .swiper-pagination {
+    bottom: 20px;
+  }
+
+  .semanal-charts {
+    width: 100% !important;
+    max-width: 700px;
+    height: auto !important;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+#ranking-performance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row nowrap;
+
+  transition: all 0.5s ease;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+
+  &.visible {
+    opacity: 1;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 455px) {
+  .btn-performance {
+    display: none;
+  }
+}
