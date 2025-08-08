@@ -40,8 +40,7 @@ export default function Home({ onLogOut }) {
   const sobras = useRef();
   const digitais = useRef();
 
-  const render = async (data = dataSelecionada) => {
-    const { ano, mes } = dataSelecionada;
+  const render = async ({ ano, mes }) => {
     const {
       data: { registros },
     } = await getRegistros({ ano, mes });
