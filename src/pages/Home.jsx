@@ -42,8 +42,10 @@ export default function Home({ onLogOut }) {
 
   const render = async ({ ano, mes }) => {
     const {
-      data: { registros },
+      data: { registros, descontos },
     } = await getRegistros({ ano, mes });
+
+    localStorage.setItem("user_cache", JSON.stringify(registros, descontos));
     setRegistros(registros);
     resetInputs();
   };
@@ -116,7 +118,8 @@ export default function Home({ onLogOut }) {
                   digitais: digitais.current.value,
                   sobras: sobras.current.value,
                 },
-                render
+                render,
+                dataSelecionada
               );
             }}
             text="Adicionar Venda"

@@ -16,6 +16,7 @@ export default function Header({ onLogOut, onRender }) {
     const { ano, mes } = data;
     setDataSelecionada({ ano, mes });
     await handleChart(null, null, "hide");
+    localStorage.clear();
     onRender({ ano, mes });
   }
 
@@ -25,6 +26,7 @@ export default function Header({ onLogOut, onRender }) {
         withCredentials: true,
       });
 
+      localStorage.clear();
       onLogOut();
       return Toast.fire({ icon: "success", text: "Deslogado com sucesso." });
     } catch (err) {

@@ -13,7 +13,7 @@ import { handleChart } from "../utils/chart.jsx";
 const fotografos_ranking = import.meta.env.VITE_PHOTOGRAPHERS_RANKING_LIST;
 
 // função que adiciona dia.
-export async function addVendas({ data, solds20, solds15, digitais, sobras }, render) {
+export async function addVendas({ data, solds20, solds15, digitais, sobras }, render, dataSelecionada) {
   [data, solds20, solds15, digitais, sobras].forEach((element) => {
     if (isNaN(Number(element))) return Toast.fire({ icon: "error", text: "Apenas números são permitidos." });
     if (element < 0) return Toast.fire({ icon: "error", text: "Nenhum campo pode ser negativo." });
@@ -43,7 +43,8 @@ export async function addVendas({ data, solds20, solds15, digitais, sobras }, re
       }
     );
 
-    render();
+    render(dataSelecionada);
+
     return Toast.fire({ icon: "success", text: message });
   } catch (error) {
     if (error.code === "ERR_BAD_REQUEST")
@@ -155,7 +156,7 @@ export async function handleVendas(
         );
 
         console.log(message);
-        render();
+        render({ mes, ano });
         return Toast.fire({ icon: "success", text: message, timer: 2000 });
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
@@ -174,7 +175,7 @@ export async function handleVendas(
           withCredentials: true,
         });
 
-        render();
+        render({ ano, mes });
         return Toast.fire({ icon: "success", text: message, timer: 2000 });
       } catch (err) {
         Toast.fire({ icon: "error", text: "Ocorreu um erro interno, verifique o console.", timer: 2000 });
@@ -193,11 +194,13 @@ export async function generateReport({ ano, mes }) {
     digital: 1,
   };
 
-  const {
-    data: { registros, descontos },
-  } = await axios.get(url + `/registros/${ano}/${mes}`, {
-    withCredentials: true,
-  });
+  // const {
+  //   data: { registros, descontos },
+  // } = await axios.get(url + `/registros/${ano}/${mes}`, {
+  //   withCredentials: true,
+  // });
+
+  const { registros, descontos } = JSON.parse(localStorage.getItem("user_cache"));
 
   if (registros.length < 1)
     return Toast.fire({ icon: "error", text: "Você deve adicionar um registro antes.", timer: 2000 });
@@ -258,11 +261,13 @@ export async function generateReport({ ano, mes }) {
 
 // função que exibe os rankings pessoais
 export async function generateChart(target, { ano, mes }) {
-  const {
-    data: { registros },
-  } = await axios.get(import.meta.env.VITE_API_URL + `/registros/${ano}/${mes}`, {
-    withCredentials: true,
-  });
+  // const {
+  //   data: { registros },
+  // } = await axios.get(import.meta.env.VITE_API_URL + `/registros/${ano}/${mes}`, {
+  //   withCredentials: true,
+  // });
+
+  const { registros } = JSON.parse(localStorage.getItem("user_cache"));
 
   const vendas = registros.reduce((ac, { vendas_20, vendas_15 }) => ac + (vendas_20 + vendas_15), 0);
   const sobras = registros.reduce((ac, { sobras }) => ac + sobras, 0);
