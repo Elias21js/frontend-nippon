@@ -43,7 +43,7 @@ export async function addVendas({ data, solds20, solds15, digitais, sobras }, re
       }
     );
 
-    render(dataSelecionada);
+    await render(dataSelecionada);
 
     return Toast.fire({ icon: "success", text: message });
   } catch (error) {
@@ -156,7 +156,7 @@ export async function handleVendas(
         );
 
         console.log(message);
-        render({ mes, ano });
+        await render({ mes, ano });
         return Toast.fire({ icon: "success", text: message, timer: 2000 });
       } catch (err) {
         if (err.code === "ERR_BAD_REQUEST") {
@@ -175,7 +175,7 @@ export async function handleVendas(
           withCredentials: true,
         });
 
-        render({ ano, mes });
+        await render({ ano, mes });
         return Toast.fire({ icon: "success", text: message, timer: 2000 });
       } catch (err) {
         Toast.fire({ icon: "error", text: "Ocorreu um erro interno, verifique o console.", timer: 2000 });

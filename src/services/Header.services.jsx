@@ -73,9 +73,10 @@ const headContainer = (descontos) => {
 };
 
 export async function handleDiscounts({ ano, mes }) {
-  const { data: descontos } = await axios.get(import.meta.env.VITE_API_URL + `/discounts/${ano}/${mes}`, {
-    withCredentials: true,
-  });
+  // const { data: descontos } = await axios.get(import.meta.env.VITE_API_URL + `/discounts/${ano}/${mes}`, {
+  //   withCredentials: true,
+  // });
+  const { descontos } = JSON.parse(localStorage.getItem("user_cache"));
 
   Swal.fire({
     title: "Lista de descontos",
