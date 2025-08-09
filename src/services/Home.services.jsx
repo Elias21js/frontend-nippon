@@ -694,6 +694,7 @@ export async function getSemanal({ ano, mes }) {
 
   const weeks = data.reduce((ac, { data: dataRegistro, nome_fotografo, vendas_20, vendas_15, sobras }) => {
     semanas.forEach(({ inicio, fim }, index) => {
+      console.log(`data-registro: ${dataRegistro}, inicio: ${inicio}, fim: ${fim}`);
       if (dataRegistro >= inicio && dataRegistro <= fim) {
         if (!ac[index]) ac[index] = [];
 
