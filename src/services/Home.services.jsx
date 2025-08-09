@@ -692,10 +692,15 @@ export async function getSemanal({ ano, mes }) {
     },
   ];
 
+  const normalize = (data) => {
+    return new Date(data);
+  };
+
   const weeks = data.reduce((ac, { data: dataRegistro, nome_fotografo, vendas_20, vendas_15, sobras }) => {
     semanas.forEach(({ inicio, fim }, index) => {
+      const normFim = normalize(dataRegistro);
       console.log(`data-registro: ${dataRegistro}, inicio: ${inicio}, fim: ${fim}`);
-      if (dataRegistro >= inicio && dataRegistro <= fim) {
+      if (dataRegistro >= inicio && dataRegistro <= normFim(fim)) {
         if (!ac[index]) ac[index] = [];
 
         const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
