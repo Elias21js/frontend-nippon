@@ -701,6 +701,11 @@ export async function getSemanal({ ano, mes }) {
 
     semanas.forEach(({ inicio, fim }, index) => {
       if (dataObj >= inicio && dataObj <= fim) {
+        console.log(
+          `📅 Registro ${dataObj.toLocaleDateString("pt-BR")} caiu na Semana ${index + 1} (${inicio.toLocaleDateString(
+            "pt-BR"
+          )} → ${fim.toLocaleDateString("pt-BR")})`
+        );
         if (!ac[index]) ac[index] = [];
 
         const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
