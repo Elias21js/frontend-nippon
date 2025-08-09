@@ -703,6 +703,7 @@ export async function getSemanal({ ano, mes }) {
       const inicioNorm = normalizeDate(inicio);
       const fimNorm = normalizeDate(fim);
 
+      console.log(dataObj, inicioNorm, fimNorm);
       if (dataObj >= inicioNorm && dataObj <= fimNorm) {
         if (!ac[index]) ac[index] = [];
 
