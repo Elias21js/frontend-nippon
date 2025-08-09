@@ -489,7 +489,8 @@ label {
   z-index: 9999;
 }
 
-.hide-cursor {
+.hide-cursor,
+.hide-cursor * {
   cursor: none !important;
 }
 
