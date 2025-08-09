@@ -109,7 +109,9 @@ export async function handleDiscounts({ ano, mes }, onRender) {
           container.classList.add("registro", "div-estilosa");
           container.style.cursor = "pointer";
 
-          container.addEventListener("click", () => editOrRemove({ discount_id, day, reason, value }, { ano, mes }));
+          container.addEventListener("click", () =>
+            editOrRemove({ discount_id, day, reason, value }, { ano, mes }, onRender)
+          );
 
           const dataR = document.createElement("span");
 
@@ -230,7 +232,7 @@ export async function addDiscounts({ ano, mes }, onRender) {
   });
 }
 
-const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }) => {
+const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }, onRender) => {
   Swal.fire({
     title: "Editar ou Remover",
     icon: "warning",
@@ -304,11 +306,7 @@ const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }) => {
       );
 
       Toast.fire({ icon: "success", text: message, timer: 2000 });
-      const { registros, descontos } = JSON.parse(localStorage.getItem("user_cache"));
-      const editDiscount = descontos.filter(({ discount_id: id_f }) => id_f !== discount_id);
-      editDiscount.push({ discount_id, data, reason, valor });
-      editDiscount.sort((a, b) => b.data - a.data);
-      localStorage.setItem("user_cache", { registros, editDiscount });
+      await onRender({ ano, mes });
 
       setTimeout(() => {
         return handleDiscounts({ ano, mes });
