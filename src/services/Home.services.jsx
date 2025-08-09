@@ -710,6 +710,8 @@ export async function getSemanal({ ano, mes }) {
 
         const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
         if (!existent) {
+          console.log(vendas_20 + vendas_15);
+          console.log(existent);
           ac[index].push({
             fotografo: nome_fotografo,
             vendas: vendas_20 + vendas_15,
