@@ -319,6 +319,7 @@ const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }, onRende
         withCredentials: true,
       });
 
+      await onRender({ ano, mes });
       Toast.fire({ icon: "success", text: message, timer: 2000 });
 
       setTimeout(() => {
