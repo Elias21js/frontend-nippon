@@ -4,6 +4,7 @@ import Auth from "../pages/Auth.jsx";
 import Home from "../pages/Home.jsx";
 
 export default function CalculateRoutes() {
+  const [loadingCount, setLoadingCount] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
@@ -24,7 +25,41 @@ export default function CalculateRoutes() {
     checkAuth();
   }, []);
 
-  if (isAuthenticated) return <Home onLogOut={() => setIsAuthenticated(false)} />;
+  useEffect(() => {
+    const requestInterceptor = axios.interceptors.request.use((config) => {
+      setLoadingCount((prev) => prev + 1);
+      return config;
+    });
 
-  return <Auth onLoginSucess={() => setIsAuthenticated(true)} />;
+    const responseInterceptor = axios.interceptors.response.use(
+      (response) => {
+        setLoadingCount((prev) => prev - 1);
+        return response;
+      },
+      (error) => {
+        setLoadingCount((prev) => prev - 1);
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      axios.interceptors.request.eject(requestInterceptor);
+      axios.interceptors.response.eject(responseInterceptor);
+    };
+  }, []);
+
+  if (isAuthenticated)
+    return (
+      <>
+        <Home onLogOut={() => setIsAuthenticated(false)} />
+        <LoadingCursor active={loadingCount > 0} />
+      </>
+    );
+
+  return (
+    <>
+      <Auth onLoginSucess={() => setIsAuthenticated(true)} />
+      <LoadingCursor active={loadingCount > 0} />
+    </>
+  );
 }

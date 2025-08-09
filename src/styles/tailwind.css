@@ -474,3 +474,26 @@ label {
     display: none;
   }
 }
+
+/* Cursor Estilizado */
+
+.custom-cursor {
+  position: fixed;
+  width: 32px;
+  height: 32px;
+  margin-left: -16px; /* centraliza no clique */
+  margin-top: -16px;
+  pointer-events: none;
+  background: url("../../public/spinner.svg") no-repeat center/cover;
+  animation: spin 0.8s linear infinite;
+  z-index: 9999;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
