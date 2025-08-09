@@ -1,7 +1,7 @@
 import Input from "../components/Input.jsx";
 import GlassBox from "../layouts/GlassBox.jsx";
 import Button from "../components/ButtonAuth.jsx";
-import logo from "../assets/logo-nippon.png";
+import logo from "../assets/logo-nippon.webp";
 import axios from "../services/Axios.js";
 import { AuthBoxLogo, AuthDivButtons, AuthDivInputs, AuthLogo } from "../styles/auth.styled.jsx";
 import { Toast } from "../utils/swal.jsx";
@@ -38,7 +38,6 @@ export default function Auth({ onLoginSucess }) {
         });
       }
     } catch ({ response }) {
-      console.log(response);
       return Toast.fire({
         icon: "error",
         text: response?.data?.message || "Erro de conexão.",

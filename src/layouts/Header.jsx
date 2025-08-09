@@ -1,5 +1,5 @@
 import { AuthBoxLogo, AuthLogo } from "../styles/auth.styled.jsx";
-import logo from "../assets/logo-nippon.png";
+import logo from "../assets/logo-nippon.webp";
 import { HeaderActions, HeaderStyled } from "../styles/home.styled.jsx";
 import ButtonAuth from "../components/ButtonAuth.jsx";
 import { Toast } from "../utils/swal.jsx";

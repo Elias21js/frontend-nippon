@@ -45,8 +45,6 @@ export default function Home({ onLogOut }) {
       data: { registros, descontos },
     } = await getRegistros({ ano, mes });
 
-    console.log("Rerender.");
-
     localStorage.setItem("user_cache", JSON.stringify({ registros: registros ?? [], descontos: descontos ?? [] }));
     setRegistros(registros);
     resetInputs();
