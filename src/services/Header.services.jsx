@@ -72,7 +72,7 @@ const headContainer = (descontos) => {
   }
 };
 
-export async function handleDiscounts({ ano, mes }) {
+export async function handleDiscounts({ ano, mes }, onRender) {
   // const { data: descontos } = await axios.get(import.meta.env.VITE_API_URL + `/discounts/${ano}/${mes}`, {
   //   withCredentials: true,
   // });
@@ -141,12 +141,12 @@ export async function handleDiscounts({ ano, mes }) {
     },
   }).then(async ({ isConfirmed }) => {
     if (isConfirmed) {
-      await addDiscounts({ ano, mes });
+      await addDiscounts({ ano, mes }, onRender);
     }
   });
 }
 
-export async function addDiscounts({ ano, mes }) {
+export async function addDiscounts({ ano, mes }, onRender) {
   Swal.fire({
     title: `Adicionar desconto: `,
     icon: "info",
@@ -221,6 +221,8 @@ export async function addDiscounts({ ano, mes }) {
           withCredentials: true,
         }
       );
+
+      await onRender({ ano, mes });
 
       return Toast.fire({ icon: "success", text: message, timer: 2000 });
     } else if (isDenied) {
@@ -302,6 +304,11 @@ const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }) => {
       );
 
       Toast.fire({ icon: "success", text: message, timer: 2000 });
+      const { registros, descontos } = JSON.parse(localStorage.getItem("user_cache"));
+      const editDiscount = descontos.filter(({ discount_id: id_f }) => id_f !== discount_id);
+      editDiscount.push({ discount_id, data, reason, valor });
+      editDiscount.sort((a, b) => b.data - a.data);
+      localStorage.setItem("user_cache", { registros, editDiscount });
 
       setTimeout(() => {
         return handleDiscounts({ ano, mes });

@@ -51,7 +51,7 @@ export default function Header({ onLogOut, onRender }) {
           text="Descontos"
           id="handleDiscounts"
           key="handleDiscounts"
-          onClick={() => handleDiscounts(dataSelecionada)}
+          onClick={() => handleDiscounts(dataSelecionada, onRender)}
         />
         <ButtonAuth text="Sair" id="handleLogout" key="handleLogout" onClick={handleLogOut} />
       </HeaderActions>
