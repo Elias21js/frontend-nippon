@@ -682,28 +682,19 @@ export async function getSemanal({ ano, mes }) {
   if (data.length === 0) return Toast.fire({ icon: "warning", text: "Ainda não há registros na semana.", timer: 2000 });
 
   const semanas = [
-    { inicio: new Date(ano, mes - 1, 1), fim: new Date(ano, mes - 1, 7, 23, 59, 59, 999) },
-    { inicio: new Date(ano, mes - 1, 8), fim: new Date(ano, mes - 1, 14, 23, 59, 59, 999) },
-    { inicio: new Date(ano, mes - 1, 15), fim: new Date(ano, mes - 1, 21, 23, 59, 59, 999) },
+    { inicio: new Date(ano, mes - 1, 1), fim: new Date(ano, mes - 1, 7) },
+    { inicio: new Date(ano, mes - 1, 8), fim: new Date(ano, mes - 1, 14) },
+    { inicio: new Date(ano, mes - 1, 15), fim: new Date(ano, mes - 1, 21) },
     // Para o último intervalo, melhor pegar o último dia do mês
     {
       inicio: new Date(ano, mes - 1, 22),
-      fim: new Date(ano, mes, 0, 23, 59, 59, 999), // dia 0 do próximo mês = último dia do mês atual
+      fim: new Date(ano, mes, 0), // dia 0 do próximo mês = último dia do mês atual
     },
   ];
 
-  function normalizeDate(d) {
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  }
-
   const weeks = data.reduce((ac, { data: dataRegistro, nome_fotografo, vendas_20, vendas_15, sobras }) => {
-    const dataObj = normalizeDate(new Date(dataRegistro));
-
     semanas.forEach(({ inicio, fim }, index) => {
-      const inicioNorm = normalizeDate(inicio);
-
-      console.log(dataObj, inicioNorm, fim);
-      if (dataObj >= inicioNorm && dataObj <= fim) {
+      if (dataRegistro >= inicio && dataRegistro <= fim) {
         if (!ac[index]) ac[index] = [];
 
         const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
