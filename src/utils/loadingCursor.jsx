@@ -1,6 +1,5 @@
 // loadingCursor.js
 import { useEffect } from "react";
-import "./loadingCursor.css";
 
 export default function LoadingCursor({ active }) {
   useEffect(() => {
