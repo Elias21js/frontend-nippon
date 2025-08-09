@@ -4,9 +4,9 @@ import { useEffect } from "react";
 export default function LoadingCursor({ active }) {
   useEffect(() => {
     if (active) {
-      document.body.style.cursor = "none !important";
+      document.body.classList.add("hide-cursor");
     } else {
-      document.body.style.cursor = "default";
+      document.body.classList.remove("hide-cursor");
     }
   }, [active]);
 

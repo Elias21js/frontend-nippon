@@ -489,6 +489,10 @@ label {
   z-index: 9999;
 }
 
+.hide-cursor {
+  cursor: none !important;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
