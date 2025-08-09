@@ -3,7 +3,7 @@ import logo from "../assets/logo-nippon.png";
 import { HeaderActions, HeaderStyled } from "../styles/home.styled.jsx";
 import ButtonAuth from "../components/ButtonAuth.jsx";
 import { Toast } from "../utils/swal.jsx";
-import axios from "axios";
+import axios from "../services/Axios.js";
 import { useContext } from "react";
 import { DataContext } from "../context/date.context.jsx";
 import { changeMonth, handleDiscounts, handleRibbon } from "../services/Header.services.jsx";
@@ -22,9 +22,7 @@ export default function Header({ onLogOut, onRender }) {
 
   async function handleLogOut() {
     try {
-      await axios.get(import.meta.env.VITE_API_URL + "/auth/logout", {
-        withCredentials: true,
-      });
+      await axios.get("/auth/logout");
 
       localStorage.clear();
       onLogOut();

@@ -2,7 +2,7 @@ import Input from "../components/Input.jsx";
 import GlassBox from "../layouts/GlassBox.jsx";
 import Button from "../components/ButtonAuth.jsx";
 import logo from "../assets/logo-nippon.png";
-import axios from "axios";
+import axios from "../services/Axios.js";
 import { AuthBoxLogo, AuthDivButtons, AuthDivInputs, AuthLogo } from "../styles/auth.styled.jsx";
 import { Toast } from "../utils/swal.jsx";
 import { useRef } from "react";
@@ -24,13 +24,7 @@ export default function Auth({ onLoginSucess }) {
     try {
       const {
         data: { message, token },
-      } = await axios.post(
-        import.meta.env.VITE_API_URL + "/auth/login",
-        { name: user, password },
-        {
-          withCredentials: true,
-        }
-      );
+      } = await axios.post("/auth/login", { name: user, password });
 
       if (token) {
         userRef.current.value = "";
@@ -66,13 +60,7 @@ export default function Auth({ onLoginSucess }) {
     try {
       const {
         data: { message },
-      } = await axios.post(
-        import.meta.env.VITE_API_URL + "/auth/register",
-        { name: user, password },
-        {
-          withCredentials: true,
-        }
-      );
+      } = await axios.post("/auth/register", { name: user, password });
       return Toast.fire({
         icon: "success",
         text: message,

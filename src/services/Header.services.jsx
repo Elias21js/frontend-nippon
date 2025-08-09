@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../services/Axios.js";
 import flatpickr from "flatpickr";
 import { Portuguese } from "flatpickr/dist/l10n/pt.js";
 import monthSelectPlugin from "flatpickr/dist/plugins/monthSelect";
@@ -212,17 +212,11 @@ export async function addDiscounts({ ano, mes }, onRender) {
       const { data, reason, valor } = value;
       const {
         data: { message },
-      } = await axios.post(
-        import.meta.env.VITE_API_URL + `/discounts`,
-        {
-          data,
-          reason,
-          valor,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      } = await axios.post("/discounts", {
+        data,
+        reason,
+        valor,
+      });
 
       await onRender({ ano, mes });
 
@@ -298,13 +292,7 @@ const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }, onRende
 
       const {
         data: { message },
-      } = await axios.put(
-        import.meta.env.VITE_API_URL + `/discounts/${discount_id}`,
-        { data, reason, value: valor },
-        {
-          withCredentials: true,
-        }
-      );
+      } = await axios.put(`/discounts/${discount_id}`, { data, reason, value: valor });
 
       await onRender({ ano, mes });
       Toast.fire({ icon: "success", text: message, timer: 2000 });
@@ -315,9 +303,7 @@ const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }, onRende
     } else if (isDenied) {
       const {
         data: { message },
-      } = await axios.delete(import.meta.env.VITE_API_URL + `/discounts/${discount_id}`, {
-        withCredentials: true,
-      });
+      } = await axios.delete(`/discounts/${discount_id}`);
 
       await onRender({ ano, mes });
       Toast.fire({ icon: "success", text: message, timer: 2000 });

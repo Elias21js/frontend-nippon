@@ -1,10 +1,8 @@
-import axios from "axios";
+import axios from "../services/Axios.js";
 
 export async function getRegistros({ ano, mes }) {
   try {
-    const registros = await axios.get(import.meta.env.VITE_API_URL + `/registros/${ano}/${mes}`, {
-      withCredentials: true,
-    });
+    const registros = await axios.get(`/registros/${ano}/${mes}`);
     return registros;
   } catch (error) {
     throw error;

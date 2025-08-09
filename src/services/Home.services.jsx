@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../services/Axios.js";
 import Swal from "sweetalert2";
 import flatpickr from "flatpickr";
 import Chart from "chart.js/auto";
@@ -29,19 +29,13 @@ export async function addVendas({ data, solds20, solds15, digitais, sobras }, re
   try {
     const {
       data: { message },
-    } = await axios.post(
-      import.meta.env.VITE_API_URL + "/registros",
-      {
-        data: realDate,
-        solds20: solds20 || 0,
-        solds15: solds15 || 0,
-        digitais: digitais || 0,
-        sobras: sobras || 0,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    } = await axios.post("/registros", {
+      data: realDate,
+      solds20: solds20 || 0,
+      solds15: solds15 || 0,
+      digitais: digitais || 0,
+      sobras: sobras || 0,
+    });
 
     await render(dataSelecionada);
 
@@ -140,20 +134,14 @@ export async function handleVendas(
       try {
         const {
           data: { message },
-        } = await axios.put(
-          import.meta.env.VITE_API_URL + `/registros/${register_id}`,
-          {
-            register_id,
-            data,
-            solds20,
-            solds15,
-            digitais,
-            sobras,
-          },
-          {
-            withCredentials: true,
-          }
-        );
+        } = await axios.put(`/registros/${register_id}`, {
+          register_id,
+          data,
+          solds20,
+          solds15,
+          digitais,
+          sobras,
+        });
 
         await render({ mes, ano });
         return Toast.fire({ icon: "success", text: message, timer: 2000 });
@@ -170,9 +158,7 @@ export async function handleVendas(
       try {
         const {
           data: { message },
-        } = await axios.delete(import.meta.env.VITE_API_URL + `/registros/${register_id}/${data}`, {
-          withCredentials: true,
-        });
+        } = await axios.delete(`/registros/${register_id}/${data}`);
 
         await render({ ano, mes });
         return Toast.fire({ icon: "success", text: message, timer: 2000 });
@@ -195,9 +181,7 @@ export async function generateReport({ ano, mes }) {
 
   // const {
   //   data: { registros, descontos },
-  // } = await axios.get(url + `/registros/${ano}/${mes}`, {
-  //   withCredentials: true,
-  // });
+  // } = await axios.get(url + `/registros/${ano}/${mes}`});
 
   const { registros, descontos } = JSON.parse(localStorage.getItem("user_cache"));
 
@@ -262,7 +246,7 @@ export async function generateReport({ ano, mes }) {
 export async function generateChart(target, { ano, mes }) {
   // const {
   //   data: { registros },
-  // } = await axios.get(import.meta.env.VITE_API_URL + `/registros/${ano}/${mes}`, {
+  // } = await axios.get(`/registros/${ano}/${mes}`, {
   //   withCredentials: true,
   // });
 
@@ -470,7 +454,7 @@ export async function generateChart(target, { ano, mes }) {
 
 // função que recebe e trata os dados mensais
 async function getMensal({ ano, mes }) {
-  const { data } = await axios.get(import.meta.env.VITE_API_URL + `/registros/${ano}/${mes}/${fotografos_ranking}`, {
+  const { data } = await axios.get(`/registros/${ano}/${mes}/${fotografos_ranking}`, {
     withCredentials: true,
   });
 
@@ -675,9 +659,7 @@ export const renderSlides = (week, id) => {
 
 // função que trata os dados semanais e retorna pro trigger
 export async function getSemanal({ ano, mes }) {
-  const { data } = await axios.get(import.meta.env.VITE_API_URL + `/registros/${ano}/${mes}/${fotografos_ranking}`, {
-    withCredentials: true,
-  });
+  const { data } = await axios.get(`/registros/${ano}/${mes}/${fotografos_ranking}`);
   if (data.length === 0) return Toast.fire({ icon: "warning", text: "Ainda não há registros na semana.", timer: 2000 });
 
   const normalizeDateOnly = (d) => {
@@ -876,9 +858,7 @@ export async function generateSemanal(target, { ano, mes }) {
 
 // função que trata os dados da performance e retorna pro trigger
 async function getPerformance({ ano, mes }) {
-  const { data } = await axios.get(import.meta.env.VITE_API_URL + `/registros/${ano}/${mes}/${fotografos_ranking}`, {
-    withCredentials: true,
-  });
+  const { data } = await axios.get(`/registros/${ano}/${mes}/${fotografos_ranking}`);
 
   const performances = data.map(({ data, nome_fotografo, vendas_20, vendas_15 }) => {
     const splitedDate = data.split("T")[0].split("-");

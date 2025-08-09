@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../services/Axios.js";
 import { useEffect, useState } from "react";
 import Auth from "../pages/Auth.jsx";
 import Home from "../pages/Home.jsx";
@@ -9,9 +9,7 @@ export default function CalculateRoutes() {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const res = await axios.get(import.meta.env.VITE_API_URL + "/auth/me", {
-          withCredentials: true,
-        });
+        const res = await axios.get(import.meta.env.VITE_API_URL + "/auth/me");
 
         if (res.status === 200) {
           setIsAuthenticated(true);
