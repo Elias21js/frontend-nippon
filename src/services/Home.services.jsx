@@ -155,7 +155,6 @@ export async function handleVendas(
           }
         );
 
-        console.log(message);
         await render({ mes, ano });
         return Toast.fire({ icon: "success", text: message, timer: 2000 });
       } catch (err) {
@@ -701,17 +700,10 @@ export async function getSemanal({ ano, mes }) {
 
     semanas.forEach(({ inicio, fim }, index) => {
       if (dataObj >= inicio && dataObj <= fim) {
-        console.log(
-          `📅 Registro ${dataObj.toLocaleDateString("pt-BR")} caiu na Semana ${index + 1} (${inicio.toLocaleDateString(
-            "pt-BR"
-          )} → ${fim.toLocaleDateString("pt-BR")})`
-        );
         if (!ac[index]) ac[index] = [];
 
         const existent = ac[index].find(({ fotografo }) => fotografo === nome_fotografo);
         if (!existent) {
-          console.log(vendas_20 + vendas_15);
-          console.log(existent);
           ac[index].push({
             fotografo: nome_fotografo,
             vendas: vendas_20 + vendas_15,
@@ -738,14 +730,12 @@ export async function getSemanal({ ano, mes }) {
     }
   });
 
-  console.log(weeks);
   return weeks;
 }
 
 // trigger para gerar ranking semanal
 export async function generateSemanal(target, { ano, mes }) {
   const weeks = await getSemanal({ ano, mes });
-  console.log(weeks);
 
   handleChart(target, "semanal");
 

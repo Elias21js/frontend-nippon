@@ -233,6 +233,7 @@ export async function addDiscounts({ ano, mes }, onRender) {
 }
 
 const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }, onRender) => {
+  console.log(onRender);
   Swal.fire({
     title: "Editar ou Remover",
     icon: "warning",
@@ -305,8 +306,8 @@ const editOrRemove = ({ discount_id, day, reason, value }, { ano, mes }, onRende
         }
       );
 
-      Toast.fire({ icon: "success", text: message, timer: 2000 });
       await onRender({ ano, mes });
+      Toast.fire({ icon: "success", text: message, timer: 2000 });
 
       setTimeout(() => {
         return handleDiscounts({ ano, mes });
