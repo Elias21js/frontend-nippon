@@ -683,7 +683,7 @@ export async function getSemanal({ ano, mes }) {
 
   const normalizeDateOnly = (d) => {
     const dateObj = new Date(d);
-    return new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
+    return new Date(dateObj.getUTCFullYear(), dateObj.getUTCMonth(), dateObj.getUTCDate());
   };
 
   const semanas = [
