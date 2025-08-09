@@ -2,6 +2,7 @@ import axios from "../services/Axios.js";
 import { useEffect, useState } from "react";
 import Auth from "../pages/Auth.jsx";
 import Home from "../pages/Home.jsx";
+import LoadingCursor from "../utils/loadingCursor.jsx";
 
 export default function CalculateRoutes() {
   const [loadingCount, setLoadingCount] = useState(0);
